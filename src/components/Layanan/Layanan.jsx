@@ -1,8 +1,7 @@
-const Layanan = ({LayananKami}) => {
+const Layanan = ({namaLayanan, keterangan, gambar}) => {
   return (
     <div>
-        <h2>{LayananKami}</h2>
-      <h4>SPECT SCAN</h4>
+      {/* <h4>SPECT SCAN</h4>
       <p>
         SPECT scan merupakan salah satu inovasi dalam kedokteran nuklir yang
         dapat mengevaluasi kondisi tubuh Sahabat MIKA dan mendeteksi kanker
@@ -20,7 +19,12 @@ const Layanan = ({LayananKami}) => {
       <h4>UROLOGI</h4>
       <p>Spesialis Urologi adalah dokter yang menangani gangguan yang terjadi di saluran kemih dan reproduksi pria. Beberapa penyakit yang diperiksa spesialis urologi antara lain uretra, kelenjar adrenal, ureter, ginjal, dan lainnya.</p>
       <h4>LAYANAN JANTUNG & BEDAH JANTUNG</h4>
-      <p>Layanan Unggulan Jantung & Bedah Jantung RS Premier Jatinegara Komprehensif, Modern, dan Mengutamakan Keselamatan Pasien</p>
+      <p>Layanan Unggulan Jantung & Bedah Jantung RS Premier Jatinegara Komprehensif, Modern, dan Mengutamakan Keselamatan Pasien</p> */}
+      <ul>
+        <img src= {gambar} alt="" />
+        <li>Nama Layanan : {namaLayanan} </li>
+        <li>Keterangan : {keterangan} </li>
+      </ul>
     </div>
   );
 };
