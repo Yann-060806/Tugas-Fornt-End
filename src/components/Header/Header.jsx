@@ -1,14 +1,24 @@
-const Header = ({HMC}) => {
-    return(
-        <div>
-            <h1>{HMC}</h1>
-            <ul>
-                <li>Home</li>
-                <li>About</li>
-                <li>Login</li>
-            </ul>
-        </div>
-    )
-}
+import "./Headre.css";
+
+const Header = ({ HMC }) => {
+  return (
+    <nav className="nav">
+      <div className="nav-brand">
+        <h1>{HMC}</h1>
+      </div>
+      <ul>
+        <li>
+          <a href="#h">Home</a>
+        </li>
+        <li>
+          <a href="#a">About</a>
+        </li>
+        <li>
+          <a href="#l">Login</a>
+        </li>
+      </ul>
+    </nav>
+  );
+};
 
 export default Header;

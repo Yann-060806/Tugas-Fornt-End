@@ -1,0 +1,21 @@
+.card-wraper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.card-wraper2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+/* Layar Desktop */
+@media (min-width: 768px) {
+    .card-wraper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .card-wraper2 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

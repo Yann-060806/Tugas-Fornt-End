@@ -1,7 +1,9 @@
+import "./Footer.css"
+
 const Footer = ({nama}) => {
   return (
-    <footer>
-      <h3>&#10084; &#10084; &#10084; Copyright &copy; 2026 Developed by {nama} &#10084; &#10084; &#10084;</h3>
+    <footer className="foot">
+      <h3>Copyright &copy; 2026 Developed by {nama}</h3>
     </footer>
   );
 };
