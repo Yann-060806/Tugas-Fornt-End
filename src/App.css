@@ -1,0 +1,33 @@
+.card-wraper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.card-wraper2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+/* Layar Desktop */
+@media (min-width: 768px) {
+  .card-wraper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .card-wraper2 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  input {
+    width: 30%;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid #0c77ce;
+  }
+  .p {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #0c77ce;
+    font-size: 1.5rem;
+  }
+}
