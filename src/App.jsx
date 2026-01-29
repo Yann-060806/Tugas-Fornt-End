@@ -7,6 +7,7 @@ import StafDokter from "./Pages/StafDokter/StafDokter.jsx";
 import Layanan from "./Pages/Layanan/Layanan.jsx";
 import ErrorPage from "./components/ErrorPage/ErrorPage.jsx";
 import { Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
