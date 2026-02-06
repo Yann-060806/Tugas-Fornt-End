@@ -1,0 +1,32 @@
+[
+  {
+    "nama_layanan": "SPECT SCAN",
+    "keterangan": "SPECT scan merupakan salah satu inovasi dalam kedokteran nuklir yang dapat mengevaluasi kondisi tubuh Sahabat MIKA dan mendeteksi kanker secara lebih akurat.",
+    "img": "row.jpg"
+  },
+  {
+    "nama_layanan": "PET SCAN",
+    "keterangan": "PET scan merupakan salah satu inovasi dalam kedokteran nuklir yang dapat mendeteksi kanker secara lebih akurat",
+    "img": "dikdik.jpg"
+  },
+  {
+    "nama_layanan": "EYECENTRIC",
+    "keterangan": "Layanan ini dirancang untuk memberikan solusi menyeluruh bagi kesehatan mata Anda dengan teknologi terkini dan penanganan medis terbaik",
+    "img": "mata.jpg"
+  },
+  {
+    "nama_layanan": "NEURO & NEUROSUGERY",
+    "keterangan": "Layanan Unggulan Neuro & Neurosurgery di HMC: Menyongsong Kesehatan Otak",
+    "img": "row.jpg"
+  },
+  {
+    "nama_layanan": "UROLOGI",
+    "keterangan": "Spesialis Urologi adalah dokter yang menangani gangguan yang terjadi di saluran kemih dan reproduksi pria. Beberapa penyakit yang diperiksa spesialis urologi antara lain uretra, kelenjar adrenal, ureter, ginjal, dan lainnya.",
+    "img": "gigi.png"
+  },
+  {
+    "nama_layanan": "LAYANAN JANTUNG & BEDAH JANTUNG",
+    "keterangan": "Layanan Unggulan Jantung & Bedah Jantung RS Premier Jatinegara – Komprehensif, Modern, dan Mengutamakan Keselamatan Pasien",
+    "img": "dikdik.jpg"
+  }
+]

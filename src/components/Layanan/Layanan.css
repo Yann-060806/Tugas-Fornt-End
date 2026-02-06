@@ -1,0 +1,84 @@
+.input {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+input {
+  width: 90%;
+  border-radius: 10px;
+  padding: 10px;
+  border: 2px solid #0c77ce;
+}
+
+.p {
+  text-align: center;
+  color: #0c77ce;
+}
+.cardLayan {
+  background-color: #0c77ce;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.cardLayan:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+.cardLayanH {
+  background-color: #fff;
+  padding: 0;
+}
+
+.cardLayanH img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.cardLayanB {
+  background-color: #0c77ce;
+  color: #ffffff;
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardLayanB ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.cardLayanB ul li {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.btnLayan {
+  background-color: #ffffff;
+  color: #0c77ce;
+  border-radius: 25px;
+  width: 100%;
+  padding: 12px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btnLayan:hover {
+  background-color: #0a5ca0;
+  color: #ffffff;
+}

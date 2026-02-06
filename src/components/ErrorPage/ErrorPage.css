@@ -1,0 +1,83 @@
+.error-container {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.error-code {
+  font-size: 120px;
+  font-weight: 800;
+  color: #0c77ce;
+  margin: 0;
+}
+
+.error-container h3 {
+  font-size: 28px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.error-container p {
+  font-size: 16px;
+  color: #666;
+  max-width: 500px;
+  margin-bottom: 30px;
+}
+
+.error-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primary {
+  background-color: #0c77ce;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0a5fb5;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #0c77ce;
+  color: #0c77ce;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #0c77ce;
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .error-code {
+    font-size: 90px;
+  }
+
+  .error-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}

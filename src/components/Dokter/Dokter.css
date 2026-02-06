@@ -1,0 +1,54 @@
+.cardDok {
+  background-color: #ffffff;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardDok:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.card-pala {
+  background-color: #0c77ce;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-pala img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #fff;
+}
+
+.card-badan {
+  padding: 1.5rem;
+}
+
+.card-badan ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card-badan li {
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.card-badan li:first-child {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0c77ce;
+}

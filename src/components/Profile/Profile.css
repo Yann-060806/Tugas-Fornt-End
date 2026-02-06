@@ -1,0 +1,78 @@
+.profile {
+  background: linear-gradient(135deg, #0c77ce, #0a5fb5);
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 60px 40px;
+  margin: 60px auto;
+  max-width: 1100px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.profile h2 {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+
+.profile p {
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.9;
+  max-width: 900px;
+  margin: 0 auto 50px;
+  opacity: 0.95;
+}
+
+.visiMisi {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 40px 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  backdrop-filter: blur(6px);
+}
+
+.visiMisi h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #fff;
+}
+
+.visiMisi p {
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: justify;
+  opacity: 0.95;
+}
+
+.profile:hover {
+  transform: translateY(-4px);
+  transition: 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .profile {
+    padding: 40px 20px;
+  }
+
+  .profile > h2 {
+    font-size: 32px;
+  }
+
+  .profile > p {
+    font-size: 16px;
+  }
+
+  .visiMisi {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .visiMisi h2 {
+    font-size: 24px;
+  }
+}
