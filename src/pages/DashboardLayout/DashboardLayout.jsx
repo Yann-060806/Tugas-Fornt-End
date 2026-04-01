@@ -1,0 +1,25 @@
+import React, { useState } from "react";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import MyNavbar from "../../components/MyNavbar/MyNavbar";
+import "./DashboardLayout.css";
+import { Outlet } from "react-router-dom";
+
+const DashboardLayout = () => {
+  const [search, setSearch] = useState("");
+
+  return (
+    <div>
+      <div className="dashboard-layout">
+        <Sidebar />
+        <div className="dashboard-main">
+          <MyNavbar search={search} setSearch={setSearch} />
+          <main className="dashboard-content">
+            <Outlet context={{ search }} />
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardLayout;

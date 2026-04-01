@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useOutletContext } from "react-router-dom";
 import axios from "axios";
+import Card from "../../components/Card/Card";
 
 const Kategori = () => {
   const [categories, setCategories] = useState([]);
+  const [currentpage, setCurrentPage] = useState(1);
+  const { search } = useOutletContext();
 
   useEffect(() => {
     getProductCategories();
@@ -12,10 +15,41 @@ const Kategori = () => {
   const getProductCategories = async () => {
     try {
       const result = await axios.get(
-        "https://apiniaga.psjpetik.my.id/api/v1/jenis-produk",
+        `${import.meta.env.VITE_API_URL}/jenis-produk`,
       );
       setCategories(result.data.data);
       //   console.log(categories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const filterData = categories.filter((category) => {
+    return category.nama?.toLowerCase().includes(search.toLowerCase());
+  });
+
+  // Untuk Mencari Total Halaman
+  const ITEMS_PER_PAGE = 10;
+  const totalPages = Math.ceil(filterData.length / ITEMS_PER_PAGE);
+
+  // slice(mulai, selesai)
+  const paginatedData = filterData.slice(
+    (currentpage - 1) * ITEMS_PER_PAGE,
+    currentpage * ITEMS_PER_PAGE,
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
+
+  const handleDelete = async (uuid) => {
+    const msg = window.confirm("Apakah yakin ingin menghapus kategori ini?");
+    if (!msg) return;
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`,
+      );
+      getProductCategories();
     } catch (error) {
       console.log(error);
     }
@@ -28,6 +62,11 @@ const Kategori = () => {
         <NavLink to={"/dashboard/kategori/add"}>Tambah Kategori</NavLink>
       </div>
 
+      <Card>
+        <h3>Ini Judul Card</h3>
+        <p>Ini Konten card</p>
+      </Card>
+
       <div className="table-wrapper">
         <table border={1}>
           <thead>
@@ -39,22 +78,54 @@ const Kategori = () => {
             </tr>
           </thead>
           <tbody>
-            {categories.map((category, index) => (
+            {paginatedData.map((category, index) => (
               <tr key={index}>
-                <td>1</td>
+                <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
                 <td>{category.nama}</td>
                 <td>
                   <img src={category.url} alt="gambar" width={120} />
                 </td>
                 <td>
                   <button>Edit</button>
-                  <button>Delete</button>
+                  <button onClick={() => handleDelete(category.uuid)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {/* PAGINATION */}
+
+      {totalPages > 1 && (
+        <div className="pagination">
+          <button
+            className="btn-page"
+            disabled={currentpage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+          >
+            &laquo; Prev
+          </button>
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              className="btn-page"
+              disabled={currentpage === i + 1}
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            className="btn-page"
+            disabled={currentpage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+          >
+            &raquo; Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
