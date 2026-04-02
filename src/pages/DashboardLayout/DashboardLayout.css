@@ -27,6 +27,6 @@ body {
 /* Desktop */
 @media (min-width: 768px) {
   .dashboard-content {
-    padding: 24px;
+    padding-top: 80px;
   }
 }

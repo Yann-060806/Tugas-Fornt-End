@@ -1,14 +1,19 @@
 import { NavLink } from "react-router-dom";
+import "./Sidebar.css";
+import logo from "../../assets/images.png";
+
 const Sidebar = () => {
   return (
     <div className="Sidebar">
       <div className="sidebar-logo">
-        <img src="https://picsum.photos/200/200" alt="logo" />
+        <img src={logo} alt="logo" />
         <h3>PeTIK Niaga</h3>
       </div>
       <ul>
         <li>
-          <NavLink to={"/dashboard"}>Dashboard</NavLink>
+          <NavLink to={"/dashboard"} end>
+            Dashboard
+          </NavLink>
         </li>
         <li>
           <NavLink to={"/dashboard/pesanan"}>Pesanan</NavLink>

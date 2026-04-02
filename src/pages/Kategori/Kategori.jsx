@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useOutletContext } from "react-router-dom";
 import axios from "axios";
-import Card from "../../components/Card/Card";
+import "./Kategori.css";
 
 const Kategori = () => {
   const [categories, setCategories] = useState([]);
@@ -59,16 +59,13 @@ const Kategori = () => {
     <div>
       <div className="kategori-header">
         <h3>Daftar Kategori</h3>
-        <NavLink to={"/dashboard/kategori/add"}>Tambah Kategori</NavLink>
+        <NavLink to={"/dashboard/kategori/add"} className="btn-tambah">
+          Tambah Kategori
+        </NavLink>
       </div>
 
-      <Card>
-        <h3>Ini Judul Card</h3>
-        <p>Ini Konten card</p>
-      </Card>
-
       <div className="table-wrapper">
-        <table border={1}>
+        <table>
           <thead>
             <tr>
               <th>No</th>
