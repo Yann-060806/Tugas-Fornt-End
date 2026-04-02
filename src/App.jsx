@@ -4,6 +4,8 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import { Route, Routes } from "react-router-dom";
 import Kategori from "./pages/Kategori/Kategori";
 import DashboardLayout from "./pages/DashboardLayout/DashboardLayout";
+import AddKategori from "./pages/Kategori/AddKategori";
+import Produk from "./pages/Produk/Produk";
 function App() {
   return (
     <>
@@ -17,7 +19,7 @@ function App() {
           <Route path="/dashboard/pesanan" element={<h1> Pesanan</h1>} />
 
           {/* Produk */}
-          <Route path="/dashboard/produk" element={<h1> Produk</h1>} />
+          <Route path="/dashboard/produk" element={<Produk />} />
           <Route
             path="/dashboard/produk/add"
             element={<h1>Tambah Produk</h1>}
@@ -26,6 +28,7 @@ function App() {
 
           {/* Jenis Produk */}
           <Route path="/dashboard/kategori" element={<Kategori />} />
+          <Route path="/dashboard/kategori/add" element={<AddKategori />} />
 
           {/* Pelanggan */}
           <Route path="/dashboard/pelanggan" element={<h1>pelanggan</h1>} />

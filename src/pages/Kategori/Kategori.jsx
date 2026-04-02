@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { NavLink, useOutletContext } from "react-router-dom";
 import axios from "axios";
-import Card from "../../components/Card/Card";
-
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 const Kategori = () => {
   const [categories, setCategories] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getProductCategories();
   }, []);
 
   const getProductCategories = async () => {
+    setLoading(true);
     try {
       const result = await axios.get(
         `${import.meta.env.VITE_API_URL}/jenis-produk`,
@@ -21,6 +23,8 @@ const Kategori = () => {
       //   console.log(categories);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,11 +66,6 @@ const Kategori = () => {
         <NavLink to={"/dashboard/kategori/add"}>Tambah Kategori</NavLink>
       </div>
 
-      <Card>
-        <h3>Ini Judul Card</h3>
-        <p>Ini Konten card</p>
-      </Card>
-
       <div className="table-wrapper">
         <table border={1}>
           <thead>
@@ -78,21 +77,32 @@ const Kategori = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedData.map((category, index) => (
-              <tr key={index}>
-                <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                <td>{category.nama}</td>
-                <td>
-                  <img src={category.url} alt="gambar" width={120} />
-                </td>
-                <td>
-                  <button>Edit</button>
-                  <button onClick={() => handleDelete(category.uuid)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {loading
+              ? Array.from({ length: 5 }).map((_, i) => (
+                  <tr key={i}>
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <td key={i}>
+                        {" "}
+                        <Skeleton />
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              : paginatedData.map((category, index) => (
+                  <tr key={index}>
+                    <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
+                    <td>{category.nama}</td>
+                    <td>
+                      <img src={category.url} alt="gambar" width={120} />
+                    </td>
+                    <td>
+                      <button>Edit</button>
+                      <button onClick={() => handleDelete(category.uuid)}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>
