@@ -3,6 +3,7 @@ import { NavLink, useOutletContext } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import "./Kategori.css";
 const Kategori = () => {
   const [categories, setCategories] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);

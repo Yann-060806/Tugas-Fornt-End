@@ -6,6 +6,11 @@ import Kategori from "./pages/Kategori/Kategori";
 import DashboardLayout from "./pages/DashboardLayout/DashboardLayout";
 import AddKategori from "./pages/Kategori/AddKategori";
 import Produk from "./pages/Produk/Produk";
+import Kartu from "./pages/Kartu/Kartu";
+import Pelanggan from "./pages/Pelanggan/Pelanggan";
+import Pesanan from "./pages/Pesanan/Pesanan";
+import Users from "./pages/Users/Users";
+import History from "./pages/History/History";
 function App() {
   return (
     <>
@@ -16,7 +21,7 @@ function App() {
           <Route element={<h1>Dashboard</h1>} />
 
           {/* Pesanan */}
-          <Route path="/dashboard/pesanan" element={<h1> Pesanan</h1>} />
+          <Route path="/dashboard/pesanan" element={<Pesanan />} />
 
           {/* Produk */}
           <Route path="/dashboard/produk" element={<Produk />} />
@@ -31,16 +36,16 @@ function App() {
           <Route path="/dashboard/kategori/add" element={<AddKategori />} />
 
           {/* Pelanggan */}
-          <Route path="/dashboard/pelanggan" element={<h1>pelanggan</h1>} />
+          <Route path="/dashboard/pelanggan" element={<Pelanggan />} />
 
           {/* Kartu */}
-          <Route path="/dashboard/kartu" element={<h1>Kartu</h1>} />
+          <Route path="/dashboard/kartu" element={<Kartu />} />
 
           {/* Users */}
-          <Route path="/dashboard/users" element={<h1>Users</h1>} />
+          <Route path="/dashboard/users" element={<Users />} />
 
           {/* History */}
-          <Route path="/dashboard/history" element={<h1>History</h1>} />
+          <Route path="/dashboard/history" element={<History />} />
         </Route>
       </Routes>
     </>
