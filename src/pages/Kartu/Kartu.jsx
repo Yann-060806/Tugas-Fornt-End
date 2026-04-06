@@ -37,11 +37,11 @@ const Kartu = () => {
   }, [search]);
 
   const handleDelete = async (uuid) => {
-    const msg = window.confirm("Apakah yakin ingin menghapus produk ini?");
+    const msg = window.confirm("Apakah yakin ingin menghapus kartu ini?");
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/produk/${uuid}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`);
       getKartu();
     } catch (error) {
       console.log(error);

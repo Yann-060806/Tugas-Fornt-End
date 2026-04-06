@@ -37,6 +37,8 @@ const History = () => {
   }, [search]);
 
   const handleDelete = async (uuid) => {
+    console.log(uuid);
+
     const msg = window.confirm("Apakah yakin ingin menghapus history ini?");
     if (!msg) return;
 
