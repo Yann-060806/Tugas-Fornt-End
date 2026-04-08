@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useOutletContext } from "react-router-dom";
+import "./Produk.css";
+import { FaPlusCircle } from "react-icons/fa";
 
 const Produk = () => {
   const [produk, setProduk] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
 
   useEffect(() => {
     getProduct();
+    getProductCategories();
   }, []);
 
   const getProduct = async () => {
@@ -48,11 +52,31 @@ const Produk = () => {
     }
   };
 
+  const getProductCategories = async () => {
+    try {
+      const result = await axios.get(
+        `${import.meta.env.VITE_API_URL}/jenis-produk`,
+      );
+      setCategories(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const categoryName = (jenis_produk_id) => {
+    const category = categories.find(
+      (product) => product.id === jenis_produk_id,
+    );
+    return category ? category.nama : "-";
+  };
+
   return (
     <div>
-      <div className="kategori-header">
+      <div className="produk-header">
         <h3>Daftar Produk</h3>
-        <NavLink to={"/dashboard/produk/add"}>Tambah Produk</NavLink>
+        <NavLink to={"/dashboard/produk/add"}>
+          <FaPlusCircle /> Tambah Produk
+        </NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -63,6 +87,7 @@ const Produk = () => {
               <th>Nama Barang</th>
               <th>Stok</th>
               <th>Minimal Stok</th>
+              <th>Harga</th>
               <th>Kategori</th>
               <th>Gambar</th>
               <th>Aksi</th>
@@ -71,19 +96,23 @@ const Produk = () => {
 
           <tbody>
             {paginatedData.length > 0 ? (
-              paginatedData.map((item, index) => (
-                <tr key={item.uuid}>
+              paginatedData.map((product, index) => (
+                <tr key={product.uuid}>
                   <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                  <td>{item.nama_barang}</td>
-                  <td>{item.stok}</td>
-                  <td>{item.min_stok}</td>
-                  <td>{item.jenis_produk_id}</td>
+                  <td>{product.nama_barang}</td>
+                  <td>{product.stok}</td>
+                  <td>{product.min_stok}</td>
+                  <td>Rp{product.harga.toLocaleString("id-ID")}</td>
+                  <td>{categoryName(product.jenis_produk_id)}</td>
                   <td>
-                    <img src={item.url} alt="gambar" width={100} />
+                    <img src={product.url} alt="gambar" width={100} />
                   </td>
                   <td>
-                    <button>Edit</button>
-                    <button onClick={() => handleDelete(item.uuid)}>
+                    <button className="btn-edit">Edit</button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete(product.uuid)}
+                    >
                       Delete
                     </button>
                   </td>

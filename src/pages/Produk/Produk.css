@@ -1,4 +1,4 @@
-.kategori-header {
+.produk-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,13 +6,12 @@
   padding-top: 100px;
 }
 
-.kategori-header h3 {
+.produk-header h3 {
   font-size: 30px;
   color: #3b82f6;
   margin: 0;
 }
-
-.kategori-header-tambah {
+.produk-header-tambah {
   text-align: center;
   margin-bottom: 25px;
   padding-top: 90px;
@@ -21,7 +20,7 @@
   margin: 0;
 }
 
-.kategori-header a {
+.produk-header a {
   text-decoration: none;
   background: linear-gradient(135deg, #0fb942, #0d7e2f);
   color: white;
@@ -33,12 +32,12 @@
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
 }
 
-.kategori-header a:hover {
+.produk-header a:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
 }
 
-.kategori-header a:active {
+.produk-header a:active {
   transform: scale(0.98);
 }
 

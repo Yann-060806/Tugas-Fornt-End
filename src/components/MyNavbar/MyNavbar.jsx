@@ -1,6 +1,10 @@
 import "./MyNavbar.css";
+import { useState } from "react";
+import profil from "../../assets/images.png";
 
 const MyNavbar = ({ search, setSearch }) => {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="MyNavbar">
       <ul>
@@ -16,8 +20,16 @@ const MyNavbar = ({ search, setSearch }) => {
         </li>
 
         <div className="navbar-right">
-          <li className="profil">Profile</li>
-          <li className="logout">Logout</li>
+          <div className="avatar-wrapper" onClick={() => setOpen(!open)}>
+            <img src={profil} alt="profile" className="avatar" />
+
+            {open && (
+              <div className="dropdown-menu">
+                <div className="dropdown-item">Profile</div>
+                <div className="dropdown-item logout-item">Logout</div>
+              </div>
+            )}
+          </div>
         </div>
       </ul>
     </div>

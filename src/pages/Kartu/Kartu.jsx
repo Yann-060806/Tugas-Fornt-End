@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useOutletContext } from "react-router-dom";
+import "./Kartu.css";
+import { FaPlusCircle } from "react-icons/fa";
 
 const Kartu = () => {
   const [kartu, setKartu] = useState([]);
@@ -50,9 +52,12 @@ const Kartu = () => {
 
   return (
     <div>
-      <div className="kategori-header">
-        <h3>Daftar Produk</h3>
-        <NavLink to={"/dashboard/produk/add"}>Tambah Produk</NavLink>
+      <div className="kartu-header">
+        <h3>Daftar Kartu</h3>
+        <NavLink to={"/dashboard/kartu/add"}>
+          {" "}
+          <FaPlusCircle /> Tambah Kartu
+        </NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -79,8 +84,11 @@ const Kartu = () => {
                   <td>{item.iuran}</td>
 
                   <td>
-                    <button>Edit</button>
-                    <button onClick={() => handleDelete(item.uuid)}>
+                    <button className="btn-edit">Edit</button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete(item.uuid)}
+                    >
                       Delete
                     </button>
                   </td>

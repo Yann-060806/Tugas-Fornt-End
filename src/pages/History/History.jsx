@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useOutletContext } from "react-router-dom";
+import { FaPlusCircle } from "react-icons/fa";
 
 const History = () => {
   const [history, setHistory] = useState([]);
@@ -54,7 +55,9 @@ const History = () => {
     <div>
       <div className="kategori-header">
         <h3>Daftar History</h3>
-        <NavLink to={"/dashboard/history/add"}>Tambah History</NavLink>
+        <NavLink to={"/dashboard/history/add"}>
+          <FaPlusCircle /> Tambah History
+        </NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -83,8 +86,11 @@ const History = () => {
                   <td>{item.user?.email}</td>
 
                   <td>
-                    <button>Edit</button>
-                    <button onClick={() => handleDelete(item.uuid)}>
+                    <button className="btn-edit">Edit</button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete(item.uuid)}
+                    >
                       Delete
                     </button>
                   </td>

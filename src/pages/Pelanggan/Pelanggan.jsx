@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useOutletContext } from "react-router-dom";
+import "./Pelanggan.css";
+import { FaPlusCircle } from "react-icons/fa";
 
 const Pelanggan = () => {
   const [pelanggan, setPelanggan] = useState([]);
+  const [kartu, setKartu] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
 
   useEffect(() => {
     getPelanggan();
+    getKartu();
   }, []);
 
   const getPelanggan = async () => {
@@ -50,11 +54,28 @@ const Pelanggan = () => {
     }
   };
 
+  const getKartu = async () => {
+    try {
+      const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+      setKartu(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const kartuName = (kartu_id) => {
+    const foundKartu = kartu.find((kartu) => kartu.id === kartu_id);
+    return foundKartu ? foundKartu.nama : "-";
+  };
+
   return (
     <div>
-      <div className="kategori-header">
+      <div className="pelanggan-header">
         <h3>Daftar Pelanggan</h3>
-        <NavLink to={"/dashboard/pelanggan/add"}>Tambah Pelanggan</NavLink>
+        <NavLink to={"/dashboard/pelanggan/add"}>
+          {" "}
+          <FaPlusCircle /> Tambah Pelanggan
+        </NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -67,6 +88,7 @@ const Pelanggan = () => {
               <th>No_Hp</th>
               <th>Alamat</th>
               <th>Tanggal Lahir</th>
+              <th>Kartu</th>
 
               <th>Aksi</th>
             </tr>
@@ -82,10 +104,14 @@ const Pelanggan = () => {
                   <td>{item.no_hp}</td>
                   <td>{item.alamat}</td>
                   <td>{item.tgl_lahir}</td>
+                  <td>{kartuName(item.kartu_id)}</td>
 
                   <td>
-                    <button>Edit</button>
-                    <button onClick={() => handleDelete(item.uuid)}>
+                    <button className="btn-edit">Edit</button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete(item.uuid)}
+                    >
                       Delete
                     </button>
                   </td>

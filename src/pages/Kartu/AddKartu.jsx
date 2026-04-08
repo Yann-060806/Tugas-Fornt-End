@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import addKategori from "../../assets/addKategori.svg";
+import addKartu from "../../assets/addKartu.svg";
 
-const AddKategori = () => {
+const AddKartu = () => {
   const navigate = useNavigate();
-  const [namaKategori, setNamaKategori] = useState("");
+  const [kode, setKode] = useState("");
+  const [namaKartu, setNamaKartu] = useState("");
+  const [diskon, setDiskon] = useState(0);
+  const [iuran, setIuran] = useState(0);
   const [gambar, setGambar] = useState(null);
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
@@ -18,9 +21,12 @@ const AddKategori = () => {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_API_URL}/jenis-produk`,
+        `${import.meta.env.VITE_API_URL}/kartu`,
         {
-          nama: namaKategori,
+          kode,
+          nama: namaKartu,
+          diskon,
+          iuran,
           gambar,
         },
         {
@@ -57,38 +63,64 @@ const AddKategori = () => {
 
   return (
     <div>
-      <div className="kategori-header-tambah">
-        <h3>Tambah Kategori</h3>
+      <div className="kartu-header-tambah">
+        <h3>Tambah Kartu</h3>
       </div>
 
-      <div className="add-kategori-layout">
+      <div className="add-kartu-layout">
         <div className="image-side">
-          <img src={addKategori} alt="kategori" />
+          <img src={addKartu} alt="kategori" />
         </div>
 
         <div className="form-side">
           <form onSubmit={handleSubmit} className="from-wrapper">
             <div className="from-grid">
-              <label htmlFor="nama">Nama Kategori</label>
+              <label htmlFor="kode">Kode</label>
               <input
                 type="text"
-                id="nama"
-                placeholder="Contoh: Elektronik"
-                onChange={(e) => setNamaKategori(e.target.value)}
+                id="kode"
+                placeholder="Masukan Kode...."
+                onChange={(e) => setKode(e.target.value)}
                 required
               />
-              {errors.global && <span className="error">{errors.global}</span>}
+              {errors.kode && <span className="error">{errors.global}</span>}
             </div>
 
             <div className="from-grid">
-              <label htmlFor="gambar">Gambar</label>
+              <label htmlFor="nama_kartu">Nama Kartu</label>
               <input
-                type="file"
-                id="gambar"
-                accept="image/*"
-                onChange={handlechangeImage}
+                type="text"
+                id="nama_kartu"
+                placeholder="Contoh: Platinum"
+                onChange={(e) => setNamaKartu(e.target.value)}
+                required
               />
-              {preview && <img src={preview} alt="image-preview" width={220} />}
+              {errors.nama_kartu && (
+                <span className="error">{errors.global}</span>
+              )}
+            </div>
+
+            <div className="from-grid">
+              <label htmlFor="diskon">Diskon</label>
+              <input
+                type="number"
+                id="diskon"
+                placeholder="Contoh: 0.05%"
+                onChange={(e) => setDiskon(e.target.value)}
+                required
+              />
+              {errors.diskon && <span className="error">{errors.global}</span>}
+            </div>
+
+            <div className="from-grid">
+              <label htmlFor="iuran">Iuran</label>
+              <input
+                type="number"
+                id="iuran"
+                onChange={(e) => setIuran(e.target.value)}
+                required
+              />
+              {errors.iuran && <span className="error">{errors.global}</span>}
             </div>
 
             <div className="btn-group">
@@ -110,4 +142,4 @@ const AddKategori = () => {
   );
 };
 
-export default AddKategori;
+export default AddKartu;

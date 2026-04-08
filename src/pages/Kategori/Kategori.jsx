@@ -4,6 +4,8 @@ import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./Kategori.css";
+import { FaPlusCircle } from "react-icons/fa";
+
 const Kategori = () => {
   const [categories, setCategories] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
@@ -64,7 +66,9 @@ const Kategori = () => {
     <div>
       <div className="kategori-header">
         <h3>Daftar Kategori</h3>
-        <NavLink to={"/dashboard/kategori/add"}>Tambah Kategori</NavLink>
+        <NavLink to={"/dashboard/kategori/add"}>
+          <FaPlusCircle /> Tambah Kategori
+        </NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -97,8 +101,11 @@ const Kategori = () => {
                       <img src={category.url} alt="gambar" width={120} />
                     </td>
                     <td>
-                      <button>Edit</button>
-                      <button onClick={() => handleDelete(category.uuid)}>
+                      <button className="btn-edit">Edit</button>
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleDelete(category.uuid)}
+                      >
                         Delete
                       </button>
                     </td>
@@ -107,7 +114,6 @@ const Kategori = () => {
           </tbody>
         </table>
       </div>
-      {/* PAGINATION */}
 
       {totalPages > 1 && (
         <div className="pagination">
