@@ -1,44 +1,60 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import addPelanggan from "../../assets/addPelanggan.svg";
-const AddPelanggan = () => {
-  const navigate = useNavigate();
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import editPelanggan from "../../assets/editPelanggan.svg";
 
+const EditPelanggan = () => {
+  const navigate = useNavigate();
   const [namaPelanggan, setNamaPelanggan] = useState("");
   const [gender, setGender] = useState("");
   const [noHp, setNoHp] = useState("");
   const [alamat, setAlamat] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
   const [kartu, setKartu] = useState(0);
-  const [users, setUsers] = useState("");
   const [kartuList, setKartuList] = useState([]);
-  const [usersList, setUsersList] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const { uuid } = useParams();
 
   useEffect(() => {
+    getProdukByUUID();
     getListKartu();
-    getListUsers();
   }, []);
+
+  const getProdukByUUID = async () => {
+    setLoading(true);
+    try {
+      const pelanggan = await axios.get(
+        `${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`,
+      );
+      setNamaPelanggan(pelanggan.data.data.nama);
+      setGender(pelanggan.data.data.gender);
+      setNoHp(pelanggan.data.data.no_hp);
+      setAlamat(pelanggan.data.data.alamat);
+      setTanggalLahir(pelanggan.data.data.tgl_lahir);
+      setKartu(pelanggan.data.data.kartu_id);
+      setPreview(pelanggan.data.data.url);
+    } catch (error) {
+      console.log(error.response);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrors({});
-
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/pelanggan`, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`, {
         nama: namaPelanggan,
         gender,
         no_hp: noHp,
         alamat,
         tgl_lahir: tanggalLahir,
         kartu_id: kartu,
-        user_id: users,
       });
-
       navigate(-1);
     } catch (error) {
       console.log(error.response);
@@ -56,22 +72,17 @@ const AddPelanggan = () => {
     }
   };
 
-  const getListUsers = async () => {
-    try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
-      setUsersList(result.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div>
       <div className="pelanggan-header-tambah">
-        <h3>Tambah Pelanggan</h3>
+        <h3>Edit Pelanggan</h3>
       </div>
 
-      <div className="add-kategori-layout">
+      <div className="add-pelanggan-layout">
+        <div className="image-side">
+          <img src={editPelanggan} alt="preview" />
+        </div>
+
         <div className="form-side">
           <form onSubmit={handleSubmit} className="from-wrapper">
             <div className="from-grid">
@@ -79,6 +90,7 @@ const AddPelanggan = () => {
               <input
                 type="text"
                 id="nama_pelanggan"
+                value={namaPelanggan}
                 placeholder="Contoh: Ari Faqod"
                 onChange={(e) => setNamaPelanggan(e.target.value)}
                 required
@@ -115,6 +127,7 @@ const AddPelanggan = () => {
               <label>Nomor HP</label>
               <input
                 type="tel"
+                value={noHp}
                 onChange={(e) => setNoHp(e.target.value)}
                 required
               />
@@ -124,6 +137,7 @@ const AddPelanggan = () => {
               <label>Alamat</label>
               <input
                 type="text"
+                value={alamat}
                 onChange={(e) => setAlamat(e.target.value)}
                 required
               />
@@ -133,28 +147,10 @@ const AddPelanggan = () => {
               <label>Tanggal Lahir</label>
               <input
                 type="date"
+                value={tanggalLahir}
                 onChange={(e) => setTanggalLahir(e.target.value)}
                 required
               />
-            </div>
-
-            <div className="from-grid">
-              <label>User</label>
-              <select
-                id="kartu"
-                value={users}
-                onChange={(e) => setUsers(e.target.value)}
-                required
-              >
-                <option value="" hidden>
-                  Pilih Users
-                </option>
-                {usersList.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.username}
-                  </option>
-                ))}
-              </select>
             </div>
 
             <div className="from-grid">
@@ -191,13 +187,9 @@ const AddPelanggan = () => {
             </div>
           </form>
         </div>
-
-        <div className="image-side">
-          <img src={addPelanggan} alt="customer" />
-        </div>
       </div>
     </div>
   );
 };
 
-export default AddPelanggan;
+export default EditPelanggan;

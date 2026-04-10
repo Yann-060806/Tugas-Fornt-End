@@ -1,24 +1,46 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import addKartu from "../../assets/addKartu.svg";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import editKartu from "../../assets/editKartu.svg";
 
-const AddKartu = () => {
+const EditKartu = () => {
   const navigate = useNavigate();
   const [kode, setKode] = useState("");
   const [namaKartu, setNamaKartu] = useState("");
   const [diskon, setDiskon] = useState(0);
   const [iuran, setIuran] = useState(0);
+
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const { uuid } = useParams();
+
+  useEffect(() => {
+    getProdukByUUID();
+  }, []);
+
+  const getProdukByUUID = async () => {
+    setLoading(true);
+    try {
+      const kartu = await axios.get(
+        `${import.meta.env.VITE_API_URL}/kartu/${uuid}`,
+      );
+      setKode(kartu.data.data.kode);
+      setNamaKartu(kartu.data.data.nama);
+      setDiskon(kartu.data.data.diskon);
+      setIuran(kartu.data.data.iuran);
+    } catch (error) {
+      console.log(error.response);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrors({});
-
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/kartu`, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`, {
         kode,
         nama: namaKartu,
         diskon,
@@ -27,18 +49,6 @@ const AddKartu = () => {
       navigate(-1);
     } catch (error) {
       console.log(error.response);
-      const apiErrors = error.response.data.errors || [];
-      if (apiErrors.length > 0) {
-        const errorPerField = {};
-        apiErrors.forEach((e) => {
-          errorPerField[e.path] = e.msg;
-        });
-        setErrors(errorPerField);
-      } else {
-        setErrors({
-          global: error.response.data.msg || "Gagal Menyimpan",
-        });
-      }
     } finally {
       setLoading(false);
     }
@@ -46,15 +56,11 @@ const AddKartu = () => {
 
   return (
     <div>
-      <div className="kartu-header-tambah">
-        <h3>Tambah Kartu</h3>
+      <div className="pelanggan-header-tambah">
+        <h3>Edit Kartu</h3>
       </div>
 
       <div className="add-kartu-layout">
-        <div className="image-side">
-          <img src={addKartu} alt="kategori" />
-        </div>
-
         <div className="form-side">
           <form onSubmit={handleSubmit} className="from-wrapper">
             <div className="from-grid">
@@ -62,6 +68,7 @@ const AddKartu = () => {
               <input
                 type="text"
                 id="kode"
+                value={kode}
                 placeholder="Masukan Kode...."
                 onChange={(e) => setKode(e.target.value)}
                 required
@@ -74,6 +81,7 @@ const AddKartu = () => {
               <input
                 type="text"
                 id="nama_kartu"
+                value={namaKartu}
                 placeholder="Contoh: Platinum"
                 onChange={(e) => setNamaKartu(e.target.value)}
                 required
@@ -88,6 +96,7 @@ const AddKartu = () => {
               <input
                 type="number"
                 id="diskon"
+                value={diskon}
                 placeholder="Contoh: 0.05%"
                 onChange={(e) => setDiskon(e.target.value)}
                 required
@@ -100,6 +109,7 @@ const AddKartu = () => {
               <input
                 type="number"
                 id="iuran"
+                value={iuran}
                 onChange={(e) => setIuran(e.target.value)}
                 required
               />
@@ -120,9 +130,13 @@ const AddKartu = () => {
             </div>
           </form>
         </div>
+
+        <div className="image-side">
+          <img src={editKartu} alt="preview" />
+        </div>
       </div>
     </div>
   );
 };
 
-export default AddKartu;
+export default EditKartu;

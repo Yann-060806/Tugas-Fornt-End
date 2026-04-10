@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import "./Pesanan.css";
 import { FaPlusCircle } from "react-icons/fa";
 
@@ -8,6 +8,7 @@ const Pesanan = () => {
   const [pesanan, setPesanan] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPesanan();
@@ -50,6 +51,10 @@ const Pesanan = () => {
     }
   };
 
+  const handleEdit = async (uuid) => {
+    navigate(`/dashboard/pesanan/edit/${uuid}`);
+  };
+
   return (
     <div>
       <div className="pesanan-header">
@@ -83,7 +88,12 @@ const Pesanan = () => {
                   <td>{item.pelanggan?.no_hp}</td>
 
                   <td>
-                    <button className="btn-edit">Edit</button>
+                    <button
+                      className="btn-edit"
+                      onClick={() => handleEdit(item.uuid)}
+                    >
+                      Edit
+                    </button>
                     <button
                       className="btn-delete"
                       onClick={() => handleDelete(item.uuid)}

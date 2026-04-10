@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import "./Kartu.css";
 import { FaPlusCircle } from "react-icons/fa";
 
@@ -8,6 +8,7 @@ const Kartu = () => {
   const [kartu, setKartu] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getKartu();
@@ -50,6 +51,10 @@ const Kartu = () => {
     }
   };
 
+  const handleEdit = async (uuid) => {
+    navigate(`/dashboard/kartu/edit/${uuid}`);
+  };
+
   return (
     <div>
       <div className="kartu-header">
@@ -84,7 +89,12 @@ const Kartu = () => {
                   <td>{item.iuran}</td>
 
                   <td>
-                    <button className="btn-edit">Edit</button>
+                    <button
+                      className="btn-edit"
+                      onClick={() => handleEdit(item.uuid)}
+                    >
+                      Edit
+                    </button>
                     <button
                       className="btn-delete"
                       onClick={() => handleDelete(item.uuid)}

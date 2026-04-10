@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -11,6 +11,7 @@ const Kategori = () => {
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProductCategories();
@@ -62,6 +63,10 @@ const Kategori = () => {
     }
   };
 
+  const handleEdit = async (uuid) => {
+    navigate(`/dashboard/kategori/edit/${uuid}`);
+  };
+
   return (
     <div>
       <div className="kategori-header">
@@ -101,7 +106,12 @@ const Kategori = () => {
                       <img src={category.url} alt="gambar" width={120} />
                     </td>
                     <td>
-                      <button className="btn-edit">Edit</button>
+                      <button
+                        className="btn-edit"
+                        onClick={() => handleEdit(category.uuid)}
+                      >
+                        Edit
+                      </button>
                       <button
                         className="btn-delete"
                         onClick={() => handleDelete(category.uuid)}

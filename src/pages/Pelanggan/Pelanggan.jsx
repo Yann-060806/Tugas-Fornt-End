@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import "./Pelanggan.css";
 import { FaPlusCircle } from "react-icons/fa";
 
@@ -9,6 +9,7 @@ const Pelanggan = () => {
   const [kartu, setKartu] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPelanggan();
@@ -68,6 +69,10 @@ const Pelanggan = () => {
     return foundKartu ? foundKartu.nama : "-";
   };
 
+  const handleEdit = async (uuid) => {
+    navigate(`/dashboard/pelanggan/edit/${uuid}`);
+  };
+
   return (
     <div>
       <div className="pelanggan-header">
@@ -107,7 +112,12 @@ const Pelanggan = () => {
                   <td>{kartuName(item.kartu_id)}</td>
 
                   <td>
-                    <button className="btn-edit">Edit</button>
+                    <button
+                      className="btn-edit"
+                      onClick={() => handleEdit(item.uuid)}
+                    >
+                      Edit
+                    </button>
                     <button
                       className="btn-delete"
                       onClick={() => handleDelete(item.uuid)}

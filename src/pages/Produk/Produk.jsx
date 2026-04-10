@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import "./Produk.css";
 import { FaPlusCircle } from "react-icons/fa";
 
@@ -9,6 +9,7 @@ const Produk = () => {
   const [categories, setCategories] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProduct();
@@ -70,6 +71,10 @@ const Produk = () => {
     return category ? category.nama : "-";
   };
 
+  const handleEdit = async (uuid) => {
+    navigate(`/dashboard/produk/edit/${uuid}`);
+  };
+
   return (
     <div>
       <div className="produk-header">
@@ -108,7 +113,12 @@ const Produk = () => {
                     <img src={product.url} alt="gambar" width={100} />
                   </td>
                   <td>
-                    <button className="btn-edit">Edit</button>
+                    <button
+                      className="btn-edit"
+                      onClick={() => handleEdit(product.uuid)}
+                    >
+                      Edit
+                    </button>
                     <button
                       className="btn-delete"
                       onClick={() => handleDelete(product.uuid)}

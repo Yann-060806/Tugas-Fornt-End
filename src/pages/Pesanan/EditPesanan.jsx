@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import addPesanan from "../../assets/addPesanan.svg";
-const AddPesanan = () => {
+import { useNavigate, useParams } from "react-router-dom";
+import editPesanan from "../../assets/editPesanan.svg";
+
+const EditPesanan = () => {
   const navigate = useNavigate();
   const [tanggal, setTanggal] = useState("");
   const [total, setTotal] = useState(0);
@@ -12,31 +13,23 @@ const AddPesanan = () => {
   const [pelangganiList, setPelangganList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const { uuid } = useParams();
 
   useEffect(() => {
+    getProdukByUUID();
     getListPelanggan();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const getProdukByUUID = async () => {
     setLoading(true);
-    setErrors({});
-
     try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/pesanan`,
-        {
-          tanggal,
-          total,
-          pelanggan_id: pelanggan,
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
+      const pesanan = await axios.get(
+        `${import.meta.env.VITE_API_URL}/pesanan/${uuid}`,
       );
-      navigate(-1);
+      setTanggal(pesanan.data.data.tanggal);
+      setTotal(pesanan.data.data.total);
+      setPelanggan(pesanan.data.data.pelanggan_id);
+      setPreview(pesanan.data.data.url);
     } catch (error) {
       console.log(error.response);
     } finally {
@@ -44,10 +37,22 @@ const AddPesanan = () => {
     }
   };
 
-  const handlechangeImage = (e) => {
-    const file = e.target.files[0];
-    setGambar(file);
-    setPreview(URL.createObjectURL(file));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrors({});
+    try {
+      await axios.put(`${import.meta.env.VITE_API_URL}/pesanan/${uuid}`, {
+        tanggal,
+        total,
+        pelanggan_id: pelanggan,
+      });
+      navigate(-1);
+    } catch (error) {
+      console.log(error.response);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getListPelanggan = async () => {
@@ -60,13 +65,14 @@ const AddPesanan = () => {
       console.log(error);
     }
   };
+
   return (
     <div>
       <div className="kategori-header-tambah">
-        <h3>Tambah Pesanan</h3>
+        <h3>Edit Pesanan</h3>
       </div>
 
-      <div className="add-kategori-layout">
+      <div className="add-pesanan-layout">
         <div className="form-side">
           <form onSubmit={handleSubmit} className="from-wrapper">
             <div className="from-grid">
@@ -74,6 +80,7 @@ const AddPesanan = () => {
               <input
                 type="date"
                 id="tanggal"
+                value={tanggal}
                 onChange={(e) => setTanggal(e.target.value)}
                 required
               />
@@ -84,6 +91,7 @@ const AddPesanan = () => {
               <input
                 type="number"
                 id="total"
+                value={total}
                 onChange={(e) => setTotal(e.target.value)}
                 required
               />
@@ -124,11 +132,11 @@ const AddPesanan = () => {
         </div>
 
         <div className="image-side">
-          <img src={addPesanan} alt="produk" />
+          <img src={editPesanan} alt="preview" />
         </div>
       </div>
     </div>
   );
 };
 
-export default AddPesanan;
+export default EditPesanan;
