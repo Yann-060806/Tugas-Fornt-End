@@ -20,12 +20,13 @@ import EditProduk from "./pages/Produk/EditProduk";
 import EditPesanan from "./pages/Pesanan/EditPesanan";
 import EditPelanggan from "./pages/Pelanggan/EditPelanggan";
 import EditKartu from "./pages/Kartu/EditKartu";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<h1>Hello World</h1>} />
+        <Route path="/" element={<LandingPage />} />
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route element={<h1>Dashboard</h1>} />
