@@ -8,6 +8,7 @@ const Pembayaran = () => {
   const { uuid } = useParams();
   const [produk, setProduk] = useState(null);
   const [pelanggan, setPelanggan] = useState(null);
+  const [kategori, setKategori] = useState([]);
   const [jumlah, setJumlah] = useState(1);
 
   const getProduk = async () => {
@@ -44,9 +45,26 @@ const Pembayaran = () => {
     }
   };
 
+  const getProdukKategori = async () => {
+    try {
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/jenis-produk`,
+      );
+      setKategori(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const categoryName = (jenis_produk_id) => {
+    const category = kategori.find((product) => product.id === jenis_produk_id);
+    return category ? category.nama : "-";
+  };
+
   useEffect(() => {
     getProduk();
     getPelanggan();
+    getProdukKategori();
   }, []);
 
   const tambah = () => setJumlah(jumlah + 1);
@@ -76,9 +94,9 @@ const Pembayaran = () => {
           <div className="product">
             <img src={produk.url} alt="produk" />
             <div className="product-info">
-              <p className="kategori">{produk.kategori}</p>
+              <p className="kategori">{categoryName(produk.jenis_produk_id)}</p>
               <h4>{produk.nama_barang}</h4>
-              <p className="harga">Rp {produk.harga.toLocaleString()}</p>
+              <p className="harga">Rp {produk.harga.toLocaleString("id-ID")}</p>
               <p className="stok">Stok: {produk.stok}</p>
             </div>
           </div>
