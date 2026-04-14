@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useOutletContext } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
 
 const History = () => {
   const [history, setHistory] = useState([]);
@@ -14,7 +15,9 @@ const History = () => {
 
   const getHistory = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/history`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/history`,
+      );
       setHistory(result.data.data);
     } catch (error) {
       console.log(error);
@@ -44,7 +47,9 @@ const History = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/history/${uuid}`);
+      await axiosInstance.delete(
+        `${import.meta.env.VITE_API_URL}/history/${uuid}`,
+      );
       getHistory();
     } catch (error) {
       console.log(error);

@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./Kategori.css";
 import { FaPlusCircle } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Kategori = () => {
   const [categories, setCategories] = useState([]);
@@ -20,7 +21,7 @@ const Kategori = () => {
   const getProductCategories = async () => {
     setLoading(true);
     try {
-      const result = await axios.get(
+      const result = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/jenis-produk`,
       );
       setCategories(result.data.data);
@@ -54,7 +55,7 @@ const Kategori = () => {
     const msg = window.confirm("Apakah yakin ingin menghapus kategori ini?");
     if (!msg) return;
     try {
-      await axios.delete(
+      await axiosInstance.delete(
         `${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`,
       );
       getProductCategories();

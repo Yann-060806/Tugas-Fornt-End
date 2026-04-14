@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useOutletContext } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -14,7 +15,9 @@ const Users = () => {
 
   const getUsers = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/users`,
+      );
       setUsers(result.data.data);
     } catch (error) {
       console.log(error);
@@ -42,7 +45,9 @@ const Users = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/users/${uuid}`);
+      await axiosInstance.delete(
+        `${import.meta.env.VITE_API_URL}/users/${uuid}`,
+      );
       getUsers();
     } catch (error) {
       console.log(error);

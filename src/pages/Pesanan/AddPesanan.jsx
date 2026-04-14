@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import addPesanan from "../../assets/addPesanan.svg";
+import axiosInstance from "../../utils/axiosInstance";
+
 const AddPesanan = () => {
   const navigate = useNavigate();
   const [tanggal, setTanggal] = useState("");
@@ -23,7 +25,7 @@ const AddPesanan = () => {
     setErrors({});
 
     try {
-      await axios.post(
+      await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/pesanan`,
         {
           tanggal,
@@ -52,7 +54,7 @@ const AddPesanan = () => {
 
   const getListPelanggan = async () => {
     try {
-      const result = await axios.get(
+      const result = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/pelanggan`,
       );
       setPelangganList(result.data.data);

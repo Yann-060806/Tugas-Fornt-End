@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import "./Pesanan.css";
 import { FaPlusCircle } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Pesanan = () => {
   const [pesanan, setPesanan] = useState([]);
@@ -16,7 +17,9 @@ const Pesanan = () => {
 
   const getPesanan = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/pesanan`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/pesanan`,
+      );
       setPesanan(result.data.data);
     } catch (error) {
       console.log(error);
@@ -44,7 +47,9 @@ const Pesanan = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/pesanan/${uuid}`);
+      await axiosInstance.delete(
+        `${import.meta.env.VITE_API_URL}/pesanan/${uuid}`,
+      );
       getPesanan();
     } catch (error) {
       console.log(error);

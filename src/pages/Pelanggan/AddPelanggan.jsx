@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import addPelanggan from "../../assets/addPelanggan.svg";
+import axiosInstance from "../../utils/axiosInstance";
+
 const AddPelanggan = () => {
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ const AddPelanggan = () => {
     setErrors({});
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/pelanggan`, {
+      await axiosInstance.post(`${import.meta.env.VITE_API_URL}/pelanggan`, {
         nama: namaPelanggan,
         gender,
         no_hp: noHp,
@@ -49,7 +51,9 @@ const AddPelanggan = () => {
 
   const getListKartu = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/kartu`,
+      );
       setKartuList(result.data.data);
     } catch (error) {
       console.log(error);
@@ -58,7 +62,9 @@ const AddPelanggan = () => {
 
   const getListUsers = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/users`,
+      );
       setUsersList(result.data.data);
     } catch (error) {
       console.log(error);

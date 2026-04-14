@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import addKartu from "../../assets/addKartu.svg";
+import axiosInstance from "../../utils/axiosInstance";
 
 const AddKartu = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const AddKartu = () => {
     setErrors({});
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/kartu`, {
+      await axiosInstance.post(`${import.meta.env.VITE_API_URL}/kartu`, {
         kode,
         nama: namaKartu,
         diskon,

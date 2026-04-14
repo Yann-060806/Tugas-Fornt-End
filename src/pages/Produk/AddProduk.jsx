@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import addProductt from "../../assets/addProductt.svg";
+import axiosInstance from "../../utils/axiosInstance";
+
 const AddProduk = () => {
   const navigate = useNavigate();
   const [namaProduk, setNamaProduk] = useState("");
@@ -26,7 +28,7 @@ const AddProduk = () => {
     setErrors({});
 
     try {
-      await axios.post(
+      await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/produk`,
         {
           nama_barang: namaProduk,
@@ -58,7 +60,7 @@ const AddProduk = () => {
 
   const getCategories = async () => {
     try {
-      const result = await axios.get(
+      const result = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/jenis-produk`,
       );
       setKategoriList(result.data.data);

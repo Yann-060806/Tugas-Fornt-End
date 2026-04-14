@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import "./Produk.css";
 import { FaPlusCircle } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Produk = () => {
   const [produk, setProduk] = useState([]);
@@ -18,7 +19,9 @@ const Produk = () => {
 
   const getProduct = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/produk`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/produk`,
+      );
       setProduk(result.data.data);
     } catch (error) {
       console.log(error);
@@ -46,7 +49,9 @@ const Produk = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/produk/${uuid}`);
+      await axiosInstance.delete(
+        `${import.meta.env.VITE_API_URL}/produk/${uuid}`,
+      );
       getProduct();
     } catch (error) {
       console.log(error);
@@ -55,7 +60,7 @@ const Produk = () => {
 
   const getProductCategories = async () => {
     try {
-      const result = await axios.get(
+      const result = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/jenis-produk`,
       );
       setCategories(result.data.data);

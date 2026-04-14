@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import addKategori from "../../assets/addKategori.svg";
+import axiosInstance from "../../utils/axiosInstance";
 
 const AddKategori = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const AddKategori = () => {
     setErrors({});
 
     try {
-      await axios.post(
+      await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/jenis-produk`,
         {
           nama: namaKategori,

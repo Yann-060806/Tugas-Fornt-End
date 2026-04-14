@@ -21,12 +21,16 @@ import EditPesanan from "./pages/Pesanan/EditPesanan";
 import EditPelanggan from "./pages/Pelanggan/EditPelanggan";
 import EditKartu from "./pages/Kartu/EditKartu";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import Pembayaran from "./pages/Pembayaran/Pembayaran";
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/landingpage" element={<LandingPage />} />
+        <Route path="/bayar/:uuid" element={<Pembayaran />} />
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route element={<h1>Dashboard</h1>} />

@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import "./Kartu.css";
 import { FaPlusCircle } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Kartu = () => {
   const [kartu, setKartu] = useState([]);
@@ -16,7 +17,9 @@ const Kartu = () => {
 
   const getKartu = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/kartu`,
+      );
       setKartu(result.data.data);
     } catch (error) {
       console.log(error);
@@ -44,7 +47,9 @@ const Kartu = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`);
+      await axiosInstance.delete(
+        `${import.meta.env.VITE_API_URL}/kartu/${uuid}`,
+      );
       getKartu();
     } catch (error) {
       console.log(error);

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import editKartu from "../../assets/editKartu.svg";
+import axiosInstance from "../../utils/axiosInstance";
 
 const EditKartu = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const EditKartu = () => {
   const getProdukByUUID = async () => {
     setLoading(true);
     try {
-      const kartu = await axios.get(
+      const kartu = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/kartu/${uuid}`,
       );
       setKode(kartu.data.data.kode);
@@ -40,7 +41,7 @@ const EditKartu = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`, {
+      await axiosInstance.put(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`, {
         kode,
         nama: namaKartu,
         diskon,

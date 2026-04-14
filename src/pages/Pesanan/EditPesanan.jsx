@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import editPesanan from "../../assets/editPesanan.svg";
+import axiosInstance from "../../utils/axiosInstance";
 
 const EditPesanan = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const EditPesanan = () => {
   const getProdukByUUID = async () => {
     setLoading(true);
     try {
-      const pesanan = await axios.get(
+      const pesanan = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/pesanan/${uuid}`,
       );
       setTanggal(pesanan.data.data.tanggal);
@@ -42,11 +43,14 @@ const EditPesanan = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/pesanan/${uuid}`, {
-        tanggal,
-        total,
-        pelanggan_id: pelanggan,
-      });
+      await axiosInstance.put(
+        `${import.meta.env.VITE_API_URL}/pesanan/${uuid}`,
+        {
+          tanggal,
+          total,
+          pelanggan_id: pelanggan,
+        },
+      );
       navigate(-1);
     } catch (error) {
       console.log(error.response);
@@ -57,7 +61,7 @@ const EditPesanan = () => {
 
   const getListPelanggan = async () => {
     try {
-      const result = await axios.get(
+      const result = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/pelanggan`,
       );
       setPelangganList(result.data.data);

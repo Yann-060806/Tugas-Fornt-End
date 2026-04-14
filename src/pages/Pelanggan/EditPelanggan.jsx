@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import editPelanggan from "../../assets/editPelanggan.svg";
+import axiosInstance from "../../utils/axiosInstance";
 
 const EditPelanggan = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const EditPelanggan = () => {
   const getProdukByUUID = async () => {
     setLoading(true);
     try {
-      const pelanggan = await axios.get(
+      const pelanggan = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`,
       );
       setNamaPelanggan(pelanggan.data.data.nama);
@@ -47,14 +48,17 @@ const EditPelanggan = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`, {
-        nama: namaPelanggan,
-        gender,
-        no_hp: noHp,
-        alamat,
-        tgl_lahir: tanggalLahir,
-        kartu_id: kartu,
-      });
+      await axiosInstance.put(
+        `${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`,
+        {
+          nama: namaPelanggan,
+          gender,
+          no_hp: noHp,
+          alamat,
+          tgl_lahir: tanggalLahir,
+          kartu_id: kartu,
+        },
+      );
       navigate(-1);
     } catch (error) {
       console.log(error.response);
@@ -65,7 +69,9 @@ const EditPelanggan = () => {
 
   const getListKartu = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/kartu`,
+      );
       setKartuList(result.data.data);
     } catch (error) {
       console.log(error);

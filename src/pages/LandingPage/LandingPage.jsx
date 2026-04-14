@@ -1,11 +1,13 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import "./LandingPage.css";
 import NavbarLandingPage from "../../components/NavbarLandingPage/NavbarLandingPage";
 import HeroLandingPage from "../../components/HeroLandingPage/HeroLandingPage";
 import Footer from "../../components/Footer/Footer";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
   const [kategori, setKategori] = useState([]);
   const [produk, setProduk] = useState([]);
   const [selectedKategori, setSelectedKategori] = useState(null);
@@ -18,7 +20,7 @@ const LandingPage = () => {
 
   const getKategori = async () => {
     try {
-      const result = await axios.get(
+      const result = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/jenis-produk`,
       );
       setKategori(result.data.data);
@@ -29,7 +31,9 @@ const LandingPage = () => {
 
   const getProduk = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/produk`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/produk`,
+      );
       setProduk(result.data.data);
     } catch (err) {
       console.log(err);
@@ -51,6 +55,10 @@ const LandingPage = () => {
   const categoryName = (jenis_produk_id) => {
     const category = kategori.find((k) => k.id === jenis_produk_id);
     return category ? category.nama : "-";
+  };
+
+  const handleBayar = (uuid) => {
+    navigate(`/bayar/${uuid}`);
   };
 
   return (
@@ -106,7 +114,12 @@ const LandingPage = () => {
 
                   <div className="produk-btn">
                     <button className="btn-cart">+ Keranjang</button>
-                    <button className="btn-beli">Beli</button>
+                    <button
+                      className="btn-beli"
+                      onClick={() => handleBayar(item.uuid)}
+                    >
+                      Beli
+                    </button>
                   </div>
                 </div>
               </div>

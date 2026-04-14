@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import "./Pelanggan.css";
 import { FaPlusCircle } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Pelanggan = () => {
   const [pelanggan, setPelanggan] = useState([]);
@@ -18,7 +19,7 @@ const Pelanggan = () => {
 
   const getPelanggan = async () => {
     try {
-      const result = await axios.get(
+      const result = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/pelanggan`,
       );
       setPelanggan(result.data.data);
@@ -48,7 +49,9 @@ const Pelanggan = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`);
+      await axiosInstance.delete(
+        `${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`,
+      );
       getPelanggan();
     } catch (error) {
       console.log(error);
@@ -57,7 +60,9 @@ const Pelanggan = () => {
 
   const getKartu = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+      const result = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/kartu`,
+      );
       setKartu(result.data.data);
     } catch (error) {
       console.log(error);
